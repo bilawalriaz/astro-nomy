@@ -10,8 +10,7 @@ import MainLayout from "./main-layout.astro";
 type Props = CollectionEntry<"blog">;
 
 const slug = Astro.props.slug;
-const { title, description, pubDate, updatedDate, cover, category } =
-  Astro.props.data;
+const { title, description, pubDate, updatedDate, cover, category } = Astro.props.data;
 ---
 
 <MainLayout title={title} description={description}>
@@ -29,14 +28,15 @@ const { title, description, pubDate, updatedDate, cover, category } =
     </button>
 
     <article class="prose dark:prose-invert max-w-none">
-      <a
-        href={`/blog/category/${category}`}
-        transition:name={`badge-cat-${slug}`}
-      >
-        <Badge radius="md" className="capitalize">
-          {category}
-        </Badge>
-      </a>
+      <div class="flex space-x-2 mb-4">
+        {category.map((cat) => (
+          <a href={`/blog/category/${cat}`} transition:name={`badge-cat-${slug}-${cat}`} key={cat}>
+            <Badge radius="md" class="badge-transition capitalize fixed-dimensions">
+              {cat}
+            </Badge>
+          </a>
+        ))}
+      </div>
       <Image
         class="rounded-xl overflow-hidden my-6"
         width={720}
@@ -46,24 +46,33 @@ const { title, description, pubDate, updatedDate, cover, category } =
         transition:name={`img-${slug}`}
       />
       <div class="flex items-center justify-between">
-        <span
-          class="font-medium text-muted-foreground"
-          transition:name={`date-${slug}`}
-        >
+        <span class="font-medium text-muted-foreground" transition:name={`date-${slug}`}>
           {formatDate(pubDate)}
-          {
-            updatedDate && (
-              <span>- Last updated on {formatDate(updatedDate)}</span>
-            )
-          }
+          {updatedDate && <span>- Last updated on {formatDate(updatedDate)}</span>}
         </span>
       </div>
-      <h1 class="font-heading text-4xl my-4" transition:name={`title-${slug}`}>
+      <h1 class="font-heading text-4xl mb-4" transition:name={`title-${slug}`}>
         {title}
       </h1>
+     
+      <h3 class="">0161 284 02342</h3>
+      <p>14 Union Street, <br>OL4 111, <br>Oldham</p>
       <p>{description}</p>
       <hr class="my-6" />
       <slot />
+     
     </article>
   </div>
 </MainLayout>
+
+<style>
+  .badge-transition {
+    display: inline-block;
+    transition: transform 0.3s, width 0.3s, height 0.3s;
+  }
+  .fixed-dimensions {
+    width: 80px; /* Set a fixed width based on your needs */
+    height: 24px; /* Set a fixed height based on your needs */
+    line-height: 24px; /* Match height for centering text vertically */
+  }
+</style>

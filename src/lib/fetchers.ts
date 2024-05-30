@@ -1,9 +1,10 @@
+// fetchers.ts
 import { getCollection } from "astro:content";
 
 export async function getCategories() {
   const posts = await getCollection("blog");
   const categories = [
-    ...new Set(posts.map((post) => post.data.category).flat()),
+    ...new Set(posts.flatMap((post) => post.data.category)),
   ];
 
   return categories;
@@ -24,6 +25,7 @@ export async function getPostsByCategory(category: string) {
 
   return posts;
 }
+
 
 export async function getGuides() {
   const guides = (await getCollection("guides"))

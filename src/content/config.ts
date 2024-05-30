@@ -1,14 +1,13 @@
+// config.ts
 import { defineCollection, z } from "astro:content";
 
 const blog = defineCollection({
-  // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       description: z.string(),
       cover: z.string(),
-      category: z.string(),
-      // Transform string to Date object
+      category: z.array(z.string()), // Changed to array of strings
       pubDate: z
         .string()
         .or(z.date())
@@ -19,6 +18,7 @@ const blog = defineCollection({
         .transform((str) => (str ? new Date(str) : undefined)),
     }),
 });
+
 
 const docs = defineCollection({
   schema: z.object({
