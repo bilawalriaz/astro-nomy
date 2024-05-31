@@ -23,7 +23,9 @@ export default defineConfig({
     }),
     icon(),
     sitemap(),
-    react(),
+    react({
+      include: ['**/react/*'],
+    }),
     tailwind({
       applyBaseStyles: false,
     }),

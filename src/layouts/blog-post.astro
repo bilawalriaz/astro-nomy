@@ -8,6 +8,10 @@ import type { CollectionEntry } from "astro:content";
 import MainLayout from "./main-layout.astro";
 
 type Props = CollectionEntry<"blog">;
+import {Button} from '@mui/joy';
+import {Box} from '@mui/joy';
+
+
 
 const slug = Astro.props.slug;
 const { title, description, pubDate, updatedDate, cover, category } = Astro.props.data;
@@ -55,7 +59,10 @@ const { title, description, pubDate, updatedDate, cover, category } = Astro.prop
       <h1 class="font-heading text-4xl mb-4" transition:name={`title-${slug}`}>
         {title}
       </h1>
-
+      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+        <Button variant="soft" color="neutral">📞 Call</Button>
+        <Button variant="soft" color="neutral">🗺️ View map</Button>
+      </Box>
       <p>{description}</p>
       <hr class="my-6" />
       <slot />
