@@ -28,7 +28,7 @@ const { title, description, pubDate, updatedDate, cover, category } = Astro.prop
     </button>
 
     <article class="prose dark:prose-invert max-w-none">
-      <div class="flex space-x-2 mb-4">
+      <div class="flex space-x-2 mb-2">
         {category.map((cat) => (
           <a href={`/blog/category/${cat}`} transition:name={`badge-cat-${slug}-${cat}`} key={cat}>
             <Badge radius="md" class="badge-transition capitalize fixed-dimensions">
@@ -37,20 +37,21 @@ const { title, description, pubDate, updatedDate, cover, category } = Astro.prop
           </a>
         ))}
       </div>
+      <div class="flex items-center justify-between mt-0 mb-0">
+        <span class="font-small text-muted-foreground" transition:name={`date-${slug}`}>
+          Last updated {formatDate(pubDate)}
+          {updatedDate && <span>- Last updated on {formatDate(updatedDate)}</span>}
+        </span>
+      </div>
       <Image
-        class="rounded-xl overflow-hidden my-6"
+        class="rounded-xl overflow-hidden my-2"
         width={720}
         height={360}
         src={cover}
         alt={title}
         transition:name={`img-${slug}`}
       />
-      <div class="flex items-center justify-between">
-        <span class="font-medium text-muted-foreground" transition:name={`date-${slug}`}>
-          {formatDate(pubDate)}
-          {updatedDate && <span>- Last updated on {formatDate(updatedDate)}</span>}
-        </span>
-      </div>
+      
       <h1 class="font-heading text-4xl mb-4" transition:name={`title-${slug}`}>
         {title}
       </h1>
