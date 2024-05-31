@@ -11,6 +11,8 @@ import simpleStackForm from "simple-stack-form";
 // https://astro.build/config
 export default defineConfig({
   site: "https://astro-nomy.vercel.app",
+  devToolbar: {
+    enabled: false},
   integrations: [
     mdx({
       syntaxHighlight: "shiki",
