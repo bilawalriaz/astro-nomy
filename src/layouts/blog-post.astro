@@ -11,10 +11,9 @@ type Props = CollectionEntry<"blog">;
 import {Button} from '@mui/joy';
 import {Box} from '@mui/joy';
 
-
-
 const slug = Astro.props.slug;
-const { title, description, pubDate, updatedDate, cover, category } = Astro.props.data;
+const { title, description, pubDate, updatedDate, cover, category, phone_number, address, googleMapsUri } = Astro.props.data;
+const coverImage = cover || 'path_to_default_image.jpg'; // Provide a default image path if cover is empty
 ---
 
 <MainLayout title={title} description={description}>
@@ -48,10 +47,10 @@ const { title, description, pubDate, updatedDate, cover, category } = Astro.prop
         </span>
       </div>
       <Image
-        class="rounded-xl overflow-hidden my-2"
+        class="w-full h-full object-cover rounded-xl overflow-hidden"
         width={720}
         height={360}
-        src={cover}
+        src={coverImage}
         alt={title}
         transition:name={`img-${slug}`}
       />
@@ -60,13 +59,13 @@ const { title, description, pubDate, updatedDate, cover, category } = Astro.prop
         {title}
       </h1>
       <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-        <Button variant="soft" color="neutral">📞 Call</Button>
-        <Button variant="soft" color="neutral">🗺️ View map</Button>
+        <a href={`tel:${phone_number}`} style="text-decoration:none;" class="px-3 py-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-100 text-black hover:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-blue-900 dark:text-blue-400">📞 Call</a>
+        <a href={googleMapsUri} style="text-decoration:none;" class="p-2  inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-100 text-black hover:bg-blue-200 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-blue-900 dark:text-blue-400">🗺️ View map</a>
       </Box>
       <p>{description}</p>
+      <p>{address}</p>
       <hr class="my-6" />
       <slot />
-     
     </article>
   </div>
 </MainLayout>
@@ -80,5 +79,33 @@ const { title, description, pubDate, updatedDate, cover, category } = Astro.prop
     width: 80px; /* Set a fixed width based on your needs */
     height: 24px; /* Set a fixed height based on your needs */
     line-height: 24px; /* Match height for centering text vertically */
+  }
+  .joy-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+  }
+  .joy-button-soft {
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  .joy-button-soft:hover {
+    background-color: #e0e0e0;
+  }
+  .joy-button-neutral {
+    background-color: #333;
+    color: #fff;
+  }
+  .joy-button-neutral:hover {
+    background-color: #444;
   }
 </style>

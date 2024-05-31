@@ -1,13 +1,15 @@
 import * as React from 'react';
-import {Box} from '@mui/joy';
-import {Button} from '@mui/joy';
-import {Card} from '@mui/joy';
-import {CardContent} from '@mui/joy';
-import {CardActions} from '@mui/joy';
-import {Chip} from '@mui/joy';
-import {Typography} from '@mui/joy';
+import { Box } from '@mui/joy';
+import { Card } from '@mui/joy';
+import { CardContent } from '@mui/joy';
+import { CardActions } from '@mui/joy';
+import { Chip } from '@mui/joy';
+import { Typography } from '@mui/joy';
 
-export default function InfoNotice() {
+export default function InfoNotice({ amenities = {} }) {
+  // Convert the amenities object to an array of keys with truthy values
+  const amenitiesList = Object.keys(amenities).filter(key => amenities[key]);
+
   return (
     <Card
       variant="solid"
@@ -32,7 +34,7 @@ export default function InfoNotice() {
       </div>
       <CardContent>
         <Typography level="body-md" textColor="white">
-          Is kid friendly
+          {amenitiesList.length > 0 ? amenitiesList.join(', ') : 'No amenities available'}
         </Typography>
       </CardContent>
       <CardActions>

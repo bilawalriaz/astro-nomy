@@ -1,4 +1,3 @@
-// config.ts
 import { defineCollection, z } from "astro:content";
 
 const blog = defineCollection({
@@ -16,9 +15,12 @@ const blog = defineCollection({
         .string()
         .optional()
         .transform((str) => (str ? new Date(str) : undefined)),
+      phone_number: z.string().optional(), // Added phone_number field
+      googleMapsUri: z.string().optional(), // Added googleMapsUri field
+      reviews: z.array(z.string()).optional(), // Added reviews field
+      amenities: z.array(z.string()).optional(), // Added amenities field
     }),
 });
-
 
 const docs = defineCollection({
   schema: z.object({
